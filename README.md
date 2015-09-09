@@ -21,3 +21,28 @@ C# .NET 4 above
 Input four digits integer, A for how many both number and position correct, and B for how many number correct but position incorrect.
 
 盡量以最少的次數完成。Try do it with the less step.
+
+***
+#Information
+###Latest Update
+2015/09/09
+
+###Version
+1.2.0
+
+###Age
+0+
+
+###System Requirements
+Windows
+
+.NET Framework 4+
+
+###Version History
+####1.2.0
+-加入多國語言(繁體中文/English)。
+
+####1.1.0
+-整體程式優化。
+
+-加入輸入錯誤偵測，現在輸入格式錯誤不會使程式崩潰了。
