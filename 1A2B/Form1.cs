@@ -11,8 +11,32 @@ namespace _1A2B
 {
     public partial class Form1 : Form
     {
+        //properties
         private int[] ans = new int[4];
         private int count = 0;
+        private string language = "cht";
+        private Dictionary<string, string> languageList = new Dictionary<string, string>(){
+            {"English","eng"},
+            {"繁體中文","cht"}
+        };
+        private Dictionary<string, Dictionary<string, string>> dictionary = new Dictionary<string, Dictionary<string, string>>(){
+            {"eng",new Dictionary<string,string>(){
+                {"answeris","Answer is"},
+                {"win","You Win"},
+                {"error","Please input four digits integer that does not repeat"},
+                {"guess","Guess"},
+                {"restart","reStart"},
+                {"answer","Answer"}
+            }},
+            {"cht",new Dictionary<string,string>(){
+                {"answeris","答案是"},
+                {"win","你贏了"},
+                {"error","請輸入四位不重複的整數"},
+                {"guess","猜數字"},
+                {"restart","重新開始"},
+                {"answer","公布答案"}
+            }}
+        };
 
         public Form1()
         {
@@ -53,10 +77,40 @@ namespace _1A2B
             GuessNumber.Text = string.Empty;
         }
 
+        //language change
+        private void LanguageChange_Click(object sender, EventArgs e)
+        {
+            bool found = false;
+            foreach (KeyValuePair<string, string> kv in languageList)
+            {
+                if (found)
+                {
+                    LanguageChange.Text = kv.Key;
+                    found = false;
+                    break;
+                }
+                else
+                {
+                    if (kv.Key == LanguageChange.Text)
+                    {
+                        language = kv.Value;
+                        found = true;
+                    }
+                }
+            }
+            if (found)
+            {
+                LanguageChange.Text = languageList.ElementAt(0).Key;
+            }
+            NewNumber.Text = dictionary[language]["restart"];
+            AnswerButton.Text = dictionary[language]["answer"];
+            GuessButton.Text = dictionary[language]["guess"];
+        }
+
         //answer
         private void AnswerButton_Click(object sender, EventArgs e)
         {
-            AnswerLabel.Text = "答案為：" + ans[0] + ans[1] + ans[2] + ans[3];
+            AnswerLabel.Text = dictionary[language]["answeris"] + "：" + ans[0] + ans[1] + ans[2] + ans[3];
         }
 
         //guess
@@ -114,7 +168,7 @@ namespace _1A2B
             ShowBox.Items.Add(count + "：" + guessArray[0] + guessArray[1] + guessArray[2] + guessArray[3] + "，" + A + "A" + B + "B");
             if (A == 4)
             {
-                MessageBox.Show("你贏了!");
+                MessageBox.Show(dictionary[language]["win"] + "!\n" + dictionary[language]["answeris"] + "：" + ans[0] + ans[1] + ans[2] + ans[3]);
             }
             ClearGuess();
             GuessNumber.Focus();
@@ -122,7 +176,7 @@ namespace _1A2B
 
         private void Error()
         {
-            MessageBox.Show("請輸入四位不重複的整數!");
+            MessageBox.Show(dictionary[language]["error"] + "!");
             ClearGuess();
             GuessNumber.Focus();
         }

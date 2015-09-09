@@ -34,6 +34,7 @@
             this.AnswerLabel = new System.Windows.Forms.Label();
             this.AnswerButton = new System.Windows.Forms.Button();
             this.ShowBox = new System.Windows.Forms.ListBox();
+            this.LanguageChange = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // GuessNumber
@@ -69,8 +70,9 @@
             this.AnswerLabel.Font = new System.Drawing.Font("新細明體", 10F);
             this.AnswerLabel.Location = new System.Drawing.Point(175, 18);
             this.AnswerLabel.Name = "AnswerLabel";
-            this.AnswerLabel.Size = new System.Drawing.Size(0, 14);
+            this.AnswerLabel.Size = new System.Drawing.Size(47, 14);
             this.AnswerLabel.TabIndex = 3;
+            this.AnswerLabel.Text = "Answer";
             // 
             // AnswerButton
             // 
@@ -84,18 +86,31 @@
             // 
             // ShowBox
             // 
+            this.ShowBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ShowBox.FormattingEnabled = true;
             this.ShowBox.ItemHeight = 12;
-            this.ShowBox.Location = new System.Drawing.Point(13, 71);
+            this.ShowBox.Location = new System.Drawing.Point(12, 71);
             this.ShowBox.Name = "ShowBox";
-            this.ShowBox.Size = new System.Drawing.Size(250, 244);
+            this.ShowBox.Size = new System.Drawing.Size(261, 244);
             this.ShowBox.TabIndex = 5;
+            // 
+            // LanguageChange
+            // 
+            this.LanguageChange.Location = new System.Drawing.Point(199, 42);
+            this.LanguageChange.Name = "LanguageChange";
+            this.LanguageChange.Size = new System.Drawing.Size(75, 23);
+            this.LanguageChange.TabIndex = 6;
+            this.LanguageChange.Text = "English";
+            this.LanguageChange.UseVisualStyleBackColor = true;
+            this.LanguageChange.Click += new System.EventHandler(this.LanguageChange_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(275, 331);
+            this.ClientSize = new System.Drawing.Size(283, 327);
+            this.Controls.Add(this.LanguageChange);
             this.Controls.Add(this.ShowBox);
             this.Controls.Add(this.AnswerButton);
             this.Controls.Add(this.AnswerLabel);
@@ -103,7 +118,7 @@
             this.Controls.Add(this.GuessButton);
             this.Controls.Add(this.GuessNumber);
             this.Name = "Form1";
-            this.Text = "猜數字";
+            this.Text = "1A2B";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,6 +132,7 @@
         private System.Windows.Forms.Label AnswerLabel;
         private System.Windows.Forms.Button AnswerButton;
         private System.Windows.Forms.ListBox ShowBox;
+        private System.Windows.Forms.Button LanguageChange;
     }
 }
 
