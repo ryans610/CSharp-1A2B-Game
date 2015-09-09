@@ -11,84 +11,120 @@ namespace _1A2B
 {
     public partial class Form1 : Form
     {
+        private int[] ans = new int[4];
+        private int count = 0;
+
         public Form1()
         {
             InitializeComponent();
+            Initialize();
         }
 
-        int[] ans = new int[4];
-        int count = 0;
-        private void NewNumber_Click(object sender, EventArgs e)
+        //Initialize
+        private void Initialize()
         {
-            Random rnd = new Random();
-            int i = 0;
-            while (i < 4)
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
+            for (int i = 0; i < 4; i++)
             {
                 ans[i] = rnd.Next(0, 9);
-                int j = 0;
-                while (j < i)
+                for (int j = 0; j < i; j++)
                 {
                     if (ans[j] == ans[i])
                     {
-                        i = i - 1;
+                        i--;
                         break;
                     }
-                    j = j + 1;
                 }
-                i = i + 1;
             }
             AnswerLabel.Text = "";
+            ClearGuess();
             count = 0;
-            GuessNumber.Text = "";
             ShowBox.Items.Clear();
+            GuessNumber.Focus();
         }
 
+        private void NewNumber_Click(object sender, EventArgs e)
+        {
+            Initialize();
+        }
+
+        private void ClearGuess()
+        {
+            GuessNumber.Text = string.Empty;
+        }
+
+        //answer
         private void AnswerButton_Click(object sender, EventArgs e)
         {
             AnswerLabel.Text = "答案為：" + ans[0] + ans[1] + ans[2] + ans[3];
         }
 
+        //guess
         private void GuessButton_Click(object sender, EventArgs e)
         {
-            int A = 0, B = 0;
-            int guess = int.Parse(GuessNumber.Text);
+            int guess;
+            if (!int.TryParse(GuessNumber.Text.Trim(), out guess))
+            {
+                Error();
+                return;
+            }
+            if (guess > 9999)
+            {
+                Error();
+                return;
+            }
             int[] guessArray = new int[4];
-            int i = 3;
-            while (i >= 0)
+            for (int i = 3; i >= 0; i--)
             {
                 guessArray[i] = guess % 10;
-                i = i - 1;
-                guess = guess / 10;
+                guess /= 10;
             }
-            i = 0;
-            while (i < 4)
+            for (int i = 0; i < 4; i++)
             {
-                int j = 0;
-                while (j < 4)
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i != j && guessArray[i] == guessArray[j])
+                    {
+                        Error();
+                        return;
+                    }
+                }
+            }
+            int A = 0, B = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
                 {
                     if (ans[i] == guessArray[j])
                     {
                         if (i == j)
                         {
-                            A = A + 1;
+                            A++;
                             break;
                         }
                         else
                         {
-                            B = B + 1;
+                            B++;
                             break;
                         }
                     }
-                    j = j + 1;
                 }
-                i = i + 1;
             }
-            count = count + 1;
-            ShowBox.Items.Add("第" + count + "次：" + GuessNumber.Text + "，" + A + "A" + B + "B");
+            count++;
+            ShowBox.Items.Add(count + "：" + guessArray[0] + guessArray[1] + guessArray[2] + guessArray[3] + "，" + A + "A" + B + "B");
             if (A == 4)
             {
                 MessageBox.Show("你贏了!");
             }
+            ClearGuess();
+            GuessNumber.Focus();
+        }
+
+        private void Error()
+        {
+            MessageBox.Show("請輸入四位不重複的整數!");
+            ClearGuess();
+            GuessNumber.Focus();
         }
     }
 }

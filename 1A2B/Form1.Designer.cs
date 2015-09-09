@@ -59,7 +59,7 @@
             this.NewNumber.Name = "NewNumber";
             this.NewNumber.Size = new System.Drawing.Size(75, 23);
             this.NewNumber.TabIndex = 2;
-            this.NewNumber.Text = "產生新數字";
+            this.NewNumber.Text = "重新開始";
             this.NewNumber.UseVisualStyleBackColor = true;
             this.NewNumber.Click += new System.EventHandler(this.NewNumber_Click);
             // 
